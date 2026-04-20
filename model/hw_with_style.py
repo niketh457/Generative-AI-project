@@ -99,7 +99,8 @@ class HWWithStyle(BaseModel):
         if 'char' in style_type:
             self.vae=False
             
-            small = False
+            small = config['style_small'] if 'style_small' in config else False
+            small_char_extractor = config['style_small_char_extractor'] if 'style_small_char_extractor' in config else False
             global_pool = config['style_global_pool'] if 'style_global_pool' in config else False
             dim = config['style_extractor_dim'] if 'style_extractor_dim' in config else dim
             char_dim = config['char_style_extractor_dim'] if 'char_style_extractor_dim' in config else dim*2
@@ -114,7 +115,8 @@ class HWWithStyle(BaseModel):
                     num_char_fc=num_char_fc,
                     vae=self.vae,
                     window=window,
-                    small=small)
+                    small=small,
+                    small_char_ex=small_char_extractor)
         else:
             self.style_extractor = None
 
@@ -287,10 +289,13 @@ class HWWithStyle(BaseModel):
         batch_size = label.size(1)
         for b in range(batch_size):
             line=[]
-            for i in range(label_lengths[b]):
-                count = round(np.random.normal(counts[i,b,0].item(),self.count_std))
+            label_len = min(int(label_lengths[b]), label.size(0))
+            count_len = counts.size(0)
+            for i in range(label_len):
+                count_index = min(i, count_len - 1)
+                count = round(np.random.normal(counts[count_index,b,0].item(),self.count_std))
                 if self.count_duplicates:
-                    duplicates = round(np.random.normal(counts[i,b,1].item(),self.dup_std))
+                    duplicates = round(np.random.normal(counts[count_index,b,1].item(),self.dup_std))
                 else:
                     duplicates=1
                 line+=[0]*count + [label[i][b]]*duplicates
