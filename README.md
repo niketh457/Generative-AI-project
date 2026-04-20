@@ -1,4 +1,4 @@
-# IITISOCML17_project
+# GENARATIVE AI PROJECT
 <!DOCTYPE html>
 <html lang="en">
 <head>
