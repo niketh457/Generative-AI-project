@@ -1,0 +1,5 @@
+venv/ 
+__pycache__/ 
+*.pyc 
+saved_model/checkpoint-iteration175000.pth 
+saved_model/

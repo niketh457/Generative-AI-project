@@ -1,76 +1,132 @@
-* {
-  padding: 0px;
-  margin: 0px;
+.project-about {
+  margin-top: 24px;
+  border: 1px solid var(--border-dark);
+  background: var(--surface-dark);
+  border-radius: 20px;
+  padding-bottom: 6px;
 }
 
-.img{
+#body.theme-light .project-about {
+  border-color: rgba(0, 128, 170, 0.22);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.96), rgba(236, 247, 255, 0.94));
+}
+
+.project-about h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  text-align: center;
+  margin-bottom: 6px;
+  color: #e9f5ff;
+  letter-spacing: 0.3px;
+}
+
+#body.theme-light .project-about h3 {
+  color: #0f3a64;
+}
+
+.project-about p {
+  color: var(--muted-dark);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+#body.theme-light .project-about p {
+  color: #3b5e84;
+}
+
+.project-about .p-5 {
+  padding-top: 1.4rem !important;
+  padding-bottom: 1.6rem !important;
+}
+
+.container-1 {
+  border: 1px solid var(--border-dark);
+  background: var(--surface-dark);
+  border-radius: 16px;
+  margin: 24px 0;
+  overflow: hidden;
+}
+
+.container-1 .row {
+  align-items: center;
+}
+
+#body.theme-light .container-1 {
+  border-color: rgba(0, 128, 170, 0.2);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(238, 248, 255, 0.95));
+}
+
+.container-1 .col-9 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.img {
   width: 100%;
+  max-width: 160px;
   height: auto;
-  border-radius: 5px;
+  border-radius: 12px;
+  margin: 8px auto;
+  display: block;
 }
 
-.contact ul{
-  display: flex;
-  float: right;
-  margin-right: 20px;
-}
-
-.contact ul li{
-  text-decoration: none;
-  list-style-type: none;
-  margin-right: 10px;
-}
-
-main li a{
-  color:#fec66d;
-}
-
-.col-9 p{
+.col-9 p {
   text-align: justify;
+  line-height: 1.65;
+  color: #d8e9ff;
 }
 
-.container-1{
-  border: 2px solid;
-  border-radius: 10px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+#body.theme-light .col-9 p {
+  color: #35587f;
 }
 
-main .bi.bi-github{
+.contact ul {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 10px 0 0;
+  padding-left: 0;
+}
+
+.contact ul li {
+  list-style: none;
+}
+
+main .social-icon {
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  outline: 2px solid #fff;
-  transition: 0.25s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-dark);
+  color: inherit;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
-main .bi.bi-github:hover{
-  outline-offset: 4px;
-  color: black;
-  outline: 2px solid black;
+#body.theme-light main .social-icon {
+  border-color: rgba(0, 128, 170, 0.24);
+  background-color: rgba(255, 255, 255, 0.78);
+  color: #1a496f;
 }
 
-main .bi.bi-linkedin{
-  border-radius: 50%;
-  outline: 2px solid #fff;
-  transition: 0.25s ease-in-out;
+main .social-icon:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background-color: rgba(0, 194, 255, 0.08);
 }
 
-main .bi.bi-linkedin:hover{
-  outline: 2px solid #0072b1;
-  color: #0072b1;
-  outline-offset: 4px;
-}
+@media (max-width: 991px) {
+  .project-about .p-5 {
+    padding: 1.2rem !important;
+  }
 
-main .bi.bi-instagram{
-  border-radius: 50%;
-  outline: 2px solid #fff;
-  transition: 0.25s ease-in-out;
-}
+  .contact ul {
+    justify-content: center;
+  }
 
-main .bi.bi-instagram:hover{
-  outline: 2px solid rgb(159,51,144);
-  background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
-  outline-offset: 4px;
-  color: white;
+  .col-9 p {
+    text-align: left;
+  }
 }
 
 

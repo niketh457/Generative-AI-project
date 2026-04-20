@@ -12,15 +12,24 @@ logging.basicConfig(level=logging.INFO, format='')
 def main(img_path, message, resume ,saveDir  ,gpu=None,config=None,addToConfig=None, fromDataset=False, test=False, arguments=None,style_loc=None):
     np.random.seed(1234)
     torch.manual_seed(1234)
+    checkpoint = None
     if resume is not None:
-        checkpoint = torch.load(resume, map_location=lambda storage, location: storage)
+        # PyTorch >=2.6 defaults to weights_only=True. This checkpoint contains
+        # non-tensor objects (e.g., logger state), so load trusted local checkpoint fully.
+        checkpoint = torch.load(resume, map_location='cpu', weights_only=False)
         
-        keys = list(checkpoint['state_dict'].keys())
-         
-        if config is None:
-            config = checkpoint['config']
-        else:
-            config = json.load(open(config))
+        # Always use checkpoint's config to match saved weights
+        config = checkpoint['config']
+
+        # Auto-detect char style extractor variant from checkpoint weights.
+        # small=True stores conv2.1 as 1x1 and conv2.2 as GroupNorm params.
+        style_probe_key = 'style_extractor.char_extractor.0.conv2.1.weight'
+        if 'state_dict' in checkpoint and style_probe_key in checkpoint['state_dict']:
+            probe_weight = checkpoint['state_dict'][style_probe_key]
+            if probe_weight.ndim == 3 and probe_weight.shape[-1] == 1:
+                config['model']['style_small_char_extractor'] = True
+            else:
+                config['model']['style_small_char_extractor'] = False
         
     config['model']['RUN']=True    
 

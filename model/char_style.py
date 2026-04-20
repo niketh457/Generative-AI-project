@@ -120,7 +120,7 @@ class CharExtractor(nn.Module):
         return self.fc(x)
 
 class CharStyleEncoder(nn.Module):
-    def __init__(self, input_dim, dim, style_dim, char_dim, char_style_dim, norm, activ, pad_type, n_class, global_pool=False, average_found_char_style=0,num_final_g_spacing_style=1,num_char_fc=1,vae=False,window=6,small=False):
+    def __init__(self, input_dim, dim, style_dim, char_dim, char_style_dim, norm, activ, pad_type, n_class, global_pool=False, average_found_char_style=0,num_final_g_spacing_style=1,num_char_fc=1,vae=False,window=6,small=False,small_char_ex=False):
         super(CharStyleEncoder, self).__init__()
         if vae:
             self.vae=True
@@ -139,7 +139,6 @@ class CharStyleEncoder(nn.Module):
             char_style_dim = style_dim
             self.single_style=True
         self.window=window
-        small_char_ex = False
         self.down = []
         self.down += [Conv2dBlock(input_dim, dim, 5, 1, 2, norm=norm, activation=activ, pad_type=pad_type)] #64
         for i in range(2):
